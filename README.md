@@ -6,6 +6,17 @@
 
 ## 安装与使用
 
+从 [GitHub Releases](https://github.com/awaity/dev-workbench/releases) 直接下载 ZIP，无需克隆仓库或自行构建。推荐使用 v1.3.0。
+
+| 版本           | 下载                                                                                                        | 主要功能                                      |
+| -------------- | ----------------------------------------------------------------------------------------------------------- | --------------------------------------------- |
+| v1.3.0（推荐） | [下载 ZIP](https://github.com/awaity/dev-workbench/releases/download/v1.3.0/dev-workbench-1.3.0-chrome.zip) | 今日待办弹窗、Markdown 导出、工作台新页面入口 |
+| v1.2.0         | [下载 ZIP](https://github.com/awaity/dev-workbench/releases/download/v1.2.0/dev-workbench-1.2.0-chrome.zip) | 自动清理历史与无引用附件，默认保留 30 天      |
+| v1.1.0         | [下载 ZIP](https://github.com/awaity/dev-workbench/releases/download/v1.1.0/dev-workbench-1.1.0-chrome.zip) | 新图标、form-data 与多文件、cURL、请求集合    |
+| v1.0.0         | [下载 ZIP](https://github.com/awaity/dev-workbench/releases/download/v1.0.0/dev-workbench-1.0.0-chrome.zip) | 首版 17 个本地开发工具                        |
+
+历史版本为原始安装包归档，文件版本以 ZIP 中的 manifest 为准；仓库提交历史从当前 v1.3.0 源码快照开始。
+
 - ZIP：`.output/dev-workbench-1.3.0-chrome.zip`，根目录包含 `manifest.json`。
 - 同内容的解压目录：`.output/chrome-mv3/`。
 - Chrome 打开 `chrome://extensions`，Edge 打开 `edge://extensions`。使用已验证可用的 ZIP 加载方式直接导入；同时提供相同内容的扩展目录。
