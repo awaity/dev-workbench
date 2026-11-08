@@ -1,0 +1,509 @@
+:root {
+  font-family: 'PingFang SC', 'Microsoft YaHei', system-ui, sans-serif;
+  color: #242932;
+  background: #fff;
+  font-synthesis: none;
+
+  --todo-bg: #fff;
+  --todo-surface: #f6f7f9;
+  --todo-text: #242932;
+  --todo-muted: #687180;
+  --todo-line: #eaecef;
+  --todo-blue: #233f78;
+  --todo-accent-bg: #edf2fa;
+  --todo-green: #34805d;
+  --todo-red: #b4433b;
+  --todo-amber: #91631a;
+  --el-color-primary: #233f78;
+  --el-color-primary-light-3: #647ba3;
+  --el-color-primary-light-5: #94a4be;
+  --el-color-primary-light-7: #c5cedd;
+  --el-color-primary-light-8: #dce3ee;
+  --el-color-primary-light-9: #edf2fa;
+  --el-color-primary-dark-2: #1b305d;
+  --el-font-size-base: 13px;
+}
+:root.dark {
+  color-scheme: dark;
+
+  --todo-bg: #20242b;
+  --todo-surface: #292e37;
+  --todo-text: #eceef2;
+  --todo-muted: #a5adbb;
+  --todo-line: #373d47;
+  --todo-blue: #a9c4ff;
+  --todo-accent-bg: #303d55;
+  --todo-green: #8cd2af;
+  --todo-red: #f09c94;
+  --todo-amber: #e1bf80;
+  --el-color-primary: #a9c4ff;
+  --el-color-primary-light-3: #bfd3ff;
+  --el-color-primary-light-5: #697d9f;
+  --el-color-primary-light-7: #425574;
+  --el-color-primary-light-8: #354763;
+  --el-color-primary-light-9: #303d55;
+  --el-color-primary-dark-2: #8aaef7;
+  --el-bg-color: #20242b;
+  --el-bg-color-overlay: #292e37;
+  --el-fill-color-blank: #20242b;
+  --el-text-color-primary: #eceef2;
+  --el-text-color-regular: #d1d6e0;
+  --el-text-color-secondary: #a5adbb;
+  --el-text-color-placeholder: #9aa3b2;
+  --el-border-color: #4b5463;
+  --el-border-color-light: #373d47;
+}
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  width: 440px;
+  height: var(--popup-height, 580px);
+  background: var(--todo-bg);
+  color: var(--todo-text);
+  overflow: hidden;
+}
+.todo-shell {
+  width: 440px;
+  height: 580px;
+  max-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+.popup-header {
+  padding: 14px 24px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.popup-brand {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--todo-muted);
+}
+.export-button.el-button {
+  padding: 7px 0 7px 10px;
+  height: 30px;
+  color: var(--todo-muted);
+  font-size: 12px;
+}
+.export-button .el-icon:last-child {
+  margin-left: 4px;
+  font-size: 11px;
+}
+.today-overview {
+  padding: 12px 24px;
+}
+.today-heading {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+}
+.today-heading h1 {
+  margin: 0;
+  font-size: 26px;
+  line-height: 1.3;
+  font-weight: 650;
+  letter-spacing: -0.8px;
+}
+.today-heading > span {
+  font-size: 12px;
+  color: var(--todo-muted);
+  white-space: nowrap;
+}
+.today-summary {
+  margin: 9px 0 8px;
+  min-height: 18px;
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--todo-muted);
+}
+.today-summary strong {
+  color: var(--todo-text);
+  font-weight: 600;
+}
+.today-summary .all-done {
+  color: var(--todo-green);
+}
+.today-overview .el-progress-bar__outer {
+  background: var(--todo-line);
+}
+.today-overview .el-progress-bar__inner {
+  background: var(--todo-green);
+}
+.view-tabs {
+  display: flex;
+  margin: 0 24px;
+  gap: 22px;
+  border-bottom: 1px solid var(--todo-line);
+}
+.view-tabs .el-button {
+  margin: 0;
+  padding: 0 0 9px;
+  height: 33px;
+  border: 0;
+  border-radius: 0;
+  font-size: 13px;
+  color: var(--todo-muted);
+}
+.view-tabs .el-button.active {
+  color: var(--todo-blue);
+  box-shadow: 0 2px var(--todo-blue);
+}
+.view-tabs .el-button.is-text:not(.is-disabled):hover {
+  background: transparent;
+  color: var(--todo-blue);
+}
+.view-tabs .el-button > span > span {
+  padding-left: 7px;
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+}
+.todo-scroll {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  padding: 8px 24px 16px;
+  scrollbar-width: thin;
+  scrollbar-color: #aeb6c4 transparent;
+}
+.add-todo.el-button {
+  width: 100%;
+  margin: 0;
+  padding: 11px 0;
+  height: 34px;
+  color: var(--todo-blue);
+  justify-content: flex-start;
+}
+.add-todo.el-button > span {
+  width: 100%;
+}
+.add-todo.el-button > span > span {
+  margin-left: auto;
+  color: var(--todo-muted);
+  font-size: 11px;
+  font-weight: 400;
+}
+.add-todo .el-icon {
+  font-size: 19px;
+}
+.todo-group h2 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 8px 0 0;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--todo-line);
+  font-size: 12px;
+  font-weight: 600;
+}
+.todo-group h2 > span {
+  color: var(--todo-muted);
+  font-weight: 400;
+  font-size: 11px;
+}
+.todo-group ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+.todo-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 11px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--todo-line);
+}
+.todo-row:last-child {
+  border: 0;
+}
+.todo-check.el-checkbox {
+  flex-shrink: 0;
+  height: 23px;
+  margin: 0;
+}
+.todo-check .el-checkbox__inner {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border-color: #9ca6b5;
+}
+.todo-check .el-checkbox__inner::after {
+  left: 6px;
+  top: 3px;
+}
+.todo-check.priority-1 .el-checkbox__inner {
+  border-color: var(--todo-red);
+  background: color-mix(in srgb, var(--todo-red) 8%, var(--todo-bg));
+}
+.todo-check.priority-2 .el-checkbox__inner {
+  border-color: var(--todo-amber);
+  background: color-mix(in srgb, var(--todo-amber) 8%, var(--todo-bg));
+}
+.todo-check .el-checkbox__input.is-checked .el-checkbox__inner {
+  background: var(--todo-green);
+  border-color: var(--todo-green);
+}
+.todo-content {
+  flex: 1;
+  min-width: 0;
+}
+.todo-title {
+  margin: 0;
+  font-size: 14px;
+  line-height: 23px;
+  overflow-wrap: anywhere;
+}
+.todo-notes {
+  margin: 4px 0 0;
+  font-size: 12px;
+  line-height: 1.7;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  color: var(--todo-muted);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.todo-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 5px;
+  font-size: 11px;
+  line-height: 17px;
+  color: var(--todo-muted);
+}
+.todo-meta > span {
+  display: inline-flex;
+  gap: 4px;
+  align-items: center;
+}
+.todo-meta .priority-label-1,
+.overdue {
+  color: var(--todo-red);
+}
+.todo-meta .priority-label-2 {
+  color: var(--todo-amber);
+}
+.todo-actions {
+  display: flex;
+  flex-shrink: 0;
+  margin: 0 -5px 0 0;
+}
+.todo-actions .el-button {
+  width: 25px;
+  height: 25px;
+  margin: 0;
+  color: var(--todo-muted);
+}
+.todo-row.is-complete .todo-title {
+  text-decoration: line-through;
+  color: var(--todo-muted);
+}
+.completed-toggle.el-button {
+  padding: 0;
+  margin-top: 12px;
+  height: 28px;
+  color: var(--todo-muted);
+  font-size: 12px;
+}
+.completed-toggle.el-button > span > span {
+  margin-left: 8px;
+}
+.todo-editor {
+  padding: 12px;
+  margin: 0 0 16px;
+  border: 1px solid var(--el-color-primary-light-5);
+  border-radius: 10px;
+}
+.todo-editor > .el-input .el-input__wrapper {
+  padding: 0;
+  box-shadow: none;
+  background: transparent;
+}
+.todo-editor > .el-input .el-input__inner {
+  font-size: 14px;
+  font-weight: 500;
+}
+.todo-editor > .el-textarea {
+  margin-top: 6px;
+}
+.todo-editor > .el-textarea .el-textarea__inner {
+  box-shadow: none;
+  padding: 0;
+  line-height: 1.7;
+  font-size: 12px;
+  background: transparent;
+}
+.editor-options {
+  display: flex;
+  gap: 10px;
+  margin-top: 12px;
+}
+.editor-options .el-date-editor.el-input {
+  width: 158px;
+}
+.editor-options .el-select {
+  width: 120px;
+}
+.editor-footer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-top: 12px;
+  margin-top: 12px;
+  border-top: 1px solid var(--todo-line);
+}
+.editor-footer > span {
+  margin-right: auto;
+  font-size: 11px;
+  color: var(--todo-muted);
+}
+.editor-footer .el-button + .el-button {
+  margin-left: 0;
+}
+.todo-empty {
+  text-align: center;
+  padding: 35px 0 20px;
+}
+.empty-check {
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  margin: 0 auto 17px;
+  border-radius: 18px;
+  color: var(--todo-blue);
+  background: var(--todo-accent-bg);
+  transform: rotate(-6deg);
+}
+.empty-check .el-icon {
+  transform: rotate(6deg);
+}
+.todo-empty h2 {
+  font-size: 15px;
+  font-weight: 500;
+  margin: 0;
+}
+.todo-empty p {
+  font-size: 12px;
+  line-height: 1.7;
+  color: var(--todo-muted);
+  margin: 9px 0;
+}
+.todo-empty .el-button {
+  color: var(--todo-blue);
+  font-size: 12px;
+}
+.popup-footer {
+  display: flex;
+  flex-shrink: 0;
+  height: 59px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  border-top: 1px solid var(--todo-line);
+  background: var(--todo-surface);
+}
+.popup-footer > span {
+  font-size: 11px;
+  color: var(--todo-muted);
+}
+.workbench-link.el-button {
+  color: var(--todo-blue);
+  font-size: 12px;
+  font-weight: 600;
+  padding-right: 0;
+}
+.popup-error {
+  padding: 10px;
+  margin: 4px 0 12px;
+  background: var(--todo-surface);
+  border-radius: 6px;
+  border-left: 3px solid var(--todo-red);
+}
+.popup-error p {
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--todo-red);
+  margin: 0 0 8px;
+  overflow-wrap: anywhere;
+}
+.el-message {
+  max-width: calc(100vw - 24px);
+  min-width: 0;
+  padding: 10px 16px;
+}
+.el-message__content {
+  font-size: 12px;
+  line-height: 1.5;
+}
+.todo-date-picker .el-picker-panel__body-wrapper .el-picker-panel__body {
+  min-width: 0;
+}
+.el-button:focus-visible,
+.el-dropdown:focus-visible,
+.el-checkbox:focus-within .el-checkbox__inner {
+  outline: 2px solid var(--todo-blue);
+  outline-offset: 3px;
+}
+.dark .el-button--primary {
+  color: #182338;
+}
+.dark .todo-check .el-checkbox__input.is-checked .el-checkbox__inner::after {
+  border-color: #173629;
+}
+
+@media (width <= 439px) {
+  body,
+  .todo-shell {
+    width: 100vw;
+  }
+  .popup-header {
+    padding-right: 18px;
+    padding-left: 18px;
+  }
+  .today-overview {
+    padding-right: 18px;
+    padding-left: 18px;
+  }
+  .view-tabs {
+    margin-right: 18px;
+    margin-left: 18px;
+  }
+  .todo-scroll {
+    padding-right: 18px;
+    padding-left: 18px;
+  }
+  .popup-footer {
+    padding-right: 18px;
+    padding-left: 18px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition: none !important;
+    animation: none !important;
+    scroll-behavior: auto !important;
+  }
+}
+.extension-popup {
+  width: 440px;
+  overflow: hidden;
+}
+.extension-popup body,
+.extension-popup .todo-shell {
+  width: 440px;
+}
